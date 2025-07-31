@@ -1,4 +1,4 @@
-package com.example.android_template
+package com.nhom4.androidmoviedb
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
