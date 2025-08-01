@@ -12,7 +12,7 @@ import org.json.JSONObject
 object ApiHelper {
 
     interface Callback<T> {
-        fun onLoading(isLoading: Boolean) {} // Optional: override nếu muốn
+        fun onLoading(isLoading: Boolean) {}
         fun onSuccess(data: T)
         fun onError(message: String, code: Int? = null)
     }
