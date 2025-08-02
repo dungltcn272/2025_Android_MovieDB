@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "150266753810",
+    "project_id": "sun-p-5aead",
+    "storage_bucket": "sun-p-5aead.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150266753810:android:e5cf67288981aae886f9cb",
+        "android_client_info": {
+          "package_name": "com.nhom4.androidmoviedb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFuBt4_WugQ5uu8cudZ1olzt7kygGUG7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
