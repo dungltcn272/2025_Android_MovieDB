@@ -6,6 +6,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.Executors
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -17,6 +18,7 @@ object ApiHelper {
         fun onError(message: String, code: Int? = null)
     }
 
+    private val executor = Executors.newSingleThreadExecutor()
     private val mainHandler = Handler(Looper.getMainLooper())
 
     private fun getJsonFromUrl(urlString: String): Pair<Boolean, String?> {
@@ -57,7 +59,7 @@ object ApiHelper {
         callback: Callback<T>
     ) {
         callback.onLoading(true)
-        Thread {
+        executor.execute {
             val (success, result) = getJsonFromUrl(urlString)
             mainHandler.post {
                 callback.onLoading(false)
@@ -73,7 +75,7 @@ object ApiHelper {
                     callback.onError(result ?: "Unknown error")
                 }
             }
-        }.start()
+        }
     }
 
     fun <T> fetchListAsync(
@@ -82,7 +84,7 @@ object ApiHelper {
         callback: Callback<List<T>>
     ) {
         callback.onLoading(true)
-        Thread {
+        executor.execute {
             val (success, result) = getJsonFromUrl(urlString)
             mainHandler.post {
                 callback.onLoading(false)
@@ -102,44 +104,6 @@ object ApiHelper {
                     callback.onError(result ?: "Unknown error")
                 }
             }
-        }.start()
+        }
     }
 }
-
-// Usage example:
-// ApiHelper.fetchObjectAsync(
-// urlString = "https://phimapi.com/phim/one-piece",
-// parse = { json -> parseMovieDetail(json) },
-// callback = object : ApiHelper.Callback<MovieDetailDto> {
-//    override fun onLoading(isLoading: Boolean) {
-//        if (isLoading) showLoadingUI() else hideLoadingUI()
-//    }
-//
-//    override fun onSuccess(data: MovieDetailDto) {
-//        displayMovie(data)
-//    }
-//
-//    override fun onError(message: String, code: Int?) {
-//        showErrorUI(message)
-//    }
-// }
-// )
-
-// ApiHelper.fetchObjectAsync(
-// urlString = "https://phimapi.com/danh-sach/phim-moi-cap-nhat-v3?page=1",
-// parse = { json -> parseMovieResponseDto(json) },
-// callback = object : ApiHelper.Callback<MovieResponseDto> {
-//    override fun onLoading(isLoading: Boolean) {
-//        if (isLoading) binding.txt.text = "Loading..."
-//    }
-//
-//    override fun onSuccess(data: MovieResponseDto) {
-//        Log.d("ApiHelper", "onSuccess: $data")
-//        binding.txt.text = "Success: $data"
-//    }
-//
-//    override fun onError(message: String, code: Int?) {
-//        binding.txt.text = "Error: $message"
-//    }
-// }
-// )
