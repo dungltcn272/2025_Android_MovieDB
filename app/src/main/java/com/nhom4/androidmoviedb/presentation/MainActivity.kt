@@ -26,9 +26,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     true
                 }
                 R.id.notificationFragment -> {
-                    AppNavigator.navigateTo(NavDestination.NotificationScreen, addToBackStack = true)
+                    AppNavigator.navigateTo(
+                        NavDestination.NotificationScreen,
+                        addToBackStack = true
+                    )
                     true
                 }
+
                 else -> false
             }
         }
