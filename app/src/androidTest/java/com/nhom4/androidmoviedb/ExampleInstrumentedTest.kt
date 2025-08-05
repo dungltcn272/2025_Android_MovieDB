@@ -1,4 +1,4 @@
-package com.example.android_template
+package com.nhom4.androidmoviedb
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
